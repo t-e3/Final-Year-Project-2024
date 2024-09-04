@@ -1,0 +1,67 @@
+
+
+{% extends 'main.html' %}
+
+{% block content %}
+<main class="create-room layout">
+  <div class="container">
+    <div class="layout__box">
+      <div class="layout__boxHeader">
+        <div class="layout__boxTitle">
+          <a href="{{request.META.HTTP_REFERER}}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>arrow-left</title>
+              <path
+                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+              </path>
+            </svg>
+          </a>
+          <h3>Report Cybercrime Incident</h3>
+        </div>
+      </div>
+      <div class="layout__body">
+        <form class="form" action="{% url 'create_report' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form__group">
+            <label for="crime_type">Crime Type</label>
+            <input required type="text" name="crime_type" list="crime-type-list" />
+              <datalist id="crime-type-list">
+              <option value="Hacking">Hacking</option>
+              <option value="Online Fraud Recruitment">Online Fraud Recruitment</option>
+              <option value="Online Drug Trafficking">Online Drug Trafficking</option>
+              <option value="CyberBullying">CyberBullying</option>
+              <option value="Child Ponography">Child Ponography</option>
+              <option value="Online Identity Theft">Online Identity Theft</option>
+              <!-- Add more options as needed -->
+            </datalist>
+          </div>
+
+          <div class="form__group">
+            <label for="crime_description">Crime Description</label>
+            <textarea required name="crime_description" id="crime_description" rows="4">{{report.crime_description}}</textarea>
+          </div>
+
+          <div class="form__group">
+            <label for="photo">Upload Photo</label>
+            <input type="file" name="photo" accept="image/*" />
+          </div>
+
+
+          <div class="form__group">
+            <label for="document">Upload Document</label>
+            <input type="file" name="document" accept=".pdf,.doc,.docx,.txt" />
+          </div>
+        
+
+       
+          <div class="form__action">
+            <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+            <button class="btn btn--main" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
